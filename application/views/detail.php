@@ -51,9 +51,8 @@
                         <span style="font-weight: bold; font-size: medium;"><center>Cicilan Ke</center></span> 
                         <span style="font-weight: bold; font-size: x-large;"><center><?= $row->cicilanke;?></center></span>
                     </div>
-                    <div class="col-8">
-                        <span>Cicilan Ke : <?= $row->cicilanke;?></span> <br>
-                        <span>Status : <i style="<?= $style;?>"><?= $row->status;?></i></span> <br>
+                    <div class="col-8"> 
+                        <span>Status : <i style="font-weight:bold;<?= $style;?>"><?= $row->status;?></i></span> <br>
                         <span>Nilai : <?= ($row->nilai)?number_format($row->nilai):'-';?></span> <br> 
                         <span>Tanggal : <?= ($row->tanggal)?date_indo($row->tanggal):'-';?></span> <br> 
                     </div>

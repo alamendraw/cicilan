@@ -25,8 +25,8 @@
                     <div class="col">
                         <img class="img-fluid" src="<?= base_url();?>/assets/images/hp.png" alt="" style="width:85px;">
                     </div>
-                    <div class="col-9">
-                        <span><?= $row->nama;?></span> <br>
+                    <div class="col-9" style="font-size: smaller;">
+                        <span><?= $row->nama;?></span> <a href="<?= site_url('home/edit/').$row->id;?>" style="float:right;">Edit</a> <br>
                         <span><?= $row->produk;?></span> <br>
                         <span>Cicilan Rp. <?= number_format($row->nilai_cicilan);?> x <?= $row->tenor;?> Bulan</span>  
                     </div>

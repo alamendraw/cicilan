@@ -24,7 +24,7 @@
                         </div> 
                         <div class="col-sm-6 col-12">
                             <fieldset class="form-label-group">
-                            <input type="text" name="nilai" value="<?= ($list->nilai)?$list->nilai:'';?>" data-inputmask="'alias': 'decimal', 'groupSeparator': ','" class="form-control" placeholder="Nilai" value=" " required data-validation-required-message="Nilai Harus Diisi">
+                            <input type="text" name="nilai" value="<?= ($list->nilai)?$list->nilai:$cicilan;?>" data-inputmask="'alias': 'decimal', 'groupSeparator': ','" class="form-control" placeholder="Nilai" value=" " required data-validation-required-message="Nilai Harus Diisi">
                                 <label for="floating-label1">Nilai</label>
                             </fieldset>
                         </div> 
@@ -62,6 +62,7 @@
             dateFormat: "dd-mm-yy",
             altFormat: "yy-mm-dd",  
         });
+
         $(function() {       
             $("#form").validate({
             errorElement: "span",

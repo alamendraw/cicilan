@@ -33,35 +33,52 @@ class Home extends CI_Controller {
 	public function tambah()
 	{
 		$this->output->set_template('template');
-		$this->load->view('form_add');
+		$this->data['action'] = 'tambah';
+		$this->load->view('form_add', $this->data);
+	}
+
+	public function edit($id)
+	{
+		$this->output->set_template('template');
+		$this->data['action'] = 'edit';
+		$this->data['data'] = $this->pelanggan->get($id);
+		$this->load->view('form_add', $this->data);
 	}
 
 	public function bayar()
 	{
 		$id = $_REQUEST['id'];
+		$data_cicil = $this->cicilan->get($id); 
 		$this->output->set_template('template');
-		$this->data['list'] = $this->cicilan->get($id); 
+		$this->data['cicilan'] = $this->pelanggan->get(['id'=>$data_cicil->id_pelanggan])->nilai_cicilan; 
+		$this->data['list'] = $data_cicil; 
 		$this->load->view('form_bayar',$this->data);
 	}
 
 	public function simpan_pembeli(){
 		$this->input->is_ajax_request() or exit('No direct script access allowed!');
 		$data = $this->input->post(null, true); 
-		$data['harga_beli'] = str_replace(',','',$data['harga_beli']);
-		$data['ongkir'] = str_replace(',','',$data['ongkir']);
-		$data['total_harga'] = str_replace(',','',$data['total_harga']);
-		$data['laba'] = str_replace(',','',$data['laba']);
-		$data['harga_jual'] = str_replace(',','',$data['harga_jual']);
-		$data['nilai_cicilan'] = str_replace(',','',$data['nilai_cicilan']);
-		$data['tenor'] = str_replace(',','',$data['tenor']); 		
-		$save = $this->pelanggan->insert($data);
-
-		for ($i=0; $i < $data['tenor']; $i++) { 
-			$cicil['id_pelanggan'] = $save;
-			$cicil['cicilanke'] = $i+1;
-			$cicil['status'] = 'Belum di bayar';
-			$save_cicil = $this->cicilan->insert($cicil);
+		$field['harga_beli'] = str_replace(',','',$data['harga_beli']);
+		$field['ongkir'] = str_replace(',','',$data['ongkir']);
+		$field['total_harga'] = str_replace(',','',$data['total_harga']);
+		$field['laba'] = str_replace(',','',$data['laba']);
+		$field['harga_jual'] = str_replace(',','',$data['harga_jual']);
+		$field['nilai_cicilan'] = str_replace(',','',$data['nilai_cicilan']);
+		$field['tenor'] = str_replace(',','',$data['tenor']); 
+		$field['nama'] = $data['nama'];
+		$field['produk'] = $data['produk'];
+		if($data['id']==''){
+			$save = $this->pelanggan->insert($field);
+			for ($i=0; $i < $field['tenor']; $i++) { 
+				$cicil['id_pelanggan'] = $save;
+				$cicil['cicilanke'] = $i+1;
+				$cicil['status'] = 'Belum di bayar';
+				$save_cicil = $this->cicilan->insert($cicil);
+			}
+		}else{
+			$save = $this->pelanggan->update($field,['id'=>$data['id']]);
 		}
+		
 		if($save){ 
 				$return['status'] = 'success';
 				$return['message'] = 'Data Berhasil Tersimpan.'; 
