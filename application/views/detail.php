@@ -25,9 +25,9 @@
                             <img class="img-fluid" src="<?= base_url();?>/assets/images/hp.png" alt="" style="width:85px;">
                         </div>
                         <div class="col-9">
-                            <span style="font-weight:bold;"><?= $pelanggan->nama;?></span> <br>
-                            <span style="font-weight:bold;"><?= $pelanggan->produk;?></span> <br>
-                            <span>Cicilan Rp. <?= number_format($pelanggan->nilai_cicilan);?> x <?= $pelanggan->tenor;?> Bulan</span>  
+                            <span style="font-weight:bold;"><?= $pelanggan['nama'];?></span> <br>
+                            <span style="font-weight:bold;"><?= $pelanggan['produk'];?></span> <br>
+                            <span>Cicilan Rp. <?= number_format($pelanggan['nilai_cicilan']);?> x <?= $pelanggan['tenor'];?> Bulan</span>  
                         </div>
                     </div> 
                 </div> 
@@ -54,7 +54,8 @@
                     <div class="col-8"  style="font-size: smaller;"> 
                         <span>Status : <i style="font-weight:bold;<?= $style;?>"><?= $row->status;?></i></span> <br>
                         <span>Nilai : <?= ($row->nilai)?number_format($row->nilai):'-';?></span> <br> 
-                        <span>Tanggal : <?= ($row->tanggal)?date_indo($row->tanggal):'-';?></span> <br> 
+                        <span>Pembayaran : <?= ($row->tanggal)?date_indo($row->tanggal):'-';?></span> <br> 
+                        <span>Tagihan : <?= ($row->bln_tagihan)?get_month($row->bln_tagihan).' '.$row->thn_tagihan:'-';?></span> <br> 
                     </div>
                 </div> 
             </div> 
@@ -62,7 +63,7 @@
     </div>
     <?php } ;?>
 </section>
-<a href="<?= site_url('home');?>" class="float">
+<a href="<?= site_url('home/transaksi');?>" class="float">
     <i class="fa fa-arrow-left my-float"></i>
 </a>
 <script type="text/javascript">

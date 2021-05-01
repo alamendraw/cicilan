@@ -8,25 +8,35 @@ class Home extends CI_Controller {
 		 
 		$this->load->model('m_pelanggan','pelanggan'); 
 		$this->load->model('m_cicilan','cicilan'); 
+		$this->load->model('m_produk','produk'); 
 		 
 	}
 
 	public function index()
 	{ 
 		$this->output->set_template('template');
-		$this->data['list'] = $this->pelanggan->get_all();
+		$this->data['belum'] = $this->cicilan->get_belum();
+		$this->data['sudah'] = $this->cicilan->get_sudah();
+		 
+		$this->load->view('home',$this->data);
+	}
+
+	public function transaksi()
+	{ 
+		$this->output->set_template('template');
+		$this->data['list'] = $this->produk->get_transaksi();
 		if($this->data['list']==false){
 			$this->data['list'] = [];
 		} 
-		$this->load->view('home',$this->data);
+		$this->load->view('bayar',$this->data);
 	}
 
 	public function detail()
 	{
 		$id = $_REQUEST['id'];
 		$this->output->set_template('template');
-		$this->data['pelanggan'] = $this->pelanggan->get(['id'=>$id]);
-		$this->data['list'] = $this->cicilan->get_all(['id_pelanggan'=>$id]); 
+		$this->data['pelanggan'] = $this->produk->get_detail($id);
+		$this->data['list'] = $this->cicilan->get_all(['id_pelanggan'=>$id]);  
 		$this->load->view('detail',$this->data);
 	}
 
@@ -34,6 +44,7 @@ class Home extends CI_Controller {
 	{
 		$this->output->set_template('template');
 		$this->data['action'] = 'tambah';
+		$this->data['pelanggan'] = $this->pelanggan->get_all();
 		$this->load->view('form_add', $this->data);
 	}
 
@@ -50,7 +61,7 @@ class Home extends CI_Controller {
 		$id = $_REQUEST['id'];
 		$data_cicil = $this->cicilan->get($id); 
 		$this->output->set_template('template');
-		$this->data['cicilan'] = $this->pelanggan->get(['id'=>$data_cicil->id_pelanggan])->nilai_cicilan; 
+		$this->data['cicilan'] = $this->produk->get(['id_pelanggan'=>$data_cicil->id_pelanggan])->nilai_cicilan; 
 		$this->data['list'] = $data_cicil; 
 		$this->load->view('form_bayar',$this->data);
 	}
@@ -65,14 +76,22 @@ class Home extends CI_Controller {
 		$field['harga_jual'] = str_replace(',','',$data['harga_jual']);
 		$field['nilai_cicilan'] = str_replace(',','',$data['nilai_cicilan']);
 		$field['tenor'] = str_replace(',','',$data['tenor']); 
-		$field['nama'] = $data['nama'];
+		$field['id_pelanggan'] = $data['nama'];
 		$field['produk'] = $data['produk'];
 		if($data['id']==''){
-			$save = $this->pelanggan->insert($field);
+			$save = $this->produk->insert($field);
+			$month = date('m')+1;
+			$year = date('Y');
 			for ($i=0; $i < $field['tenor']; $i++) { 
-				$cicil['id_pelanggan'] = $save;
+				if($month==13){
+					$month = 1;
+					$year = $year+1;
+				}
+				$cicil['id_pelanggan'] = $field['id_pelanggan'];
 				$cicil['cicilanke'] = $i+1;
 				$cicil['status'] = 'Belum di bayar';
+				$cicil['bln_tagihan'] = $month++;
+				$cicil['thn_tagihan'] = $year;
 				$save_cicil = $this->cicilan->insert($cicil);
 			}
 		}else{
@@ -105,5 +124,11 @@ class Home extends CI_Controller {
          	$return['message'] = 'Data Gagal Tersimpan.'; 
 		}
 		echo json_encode($return);
+	}
+
+	public function save_pelanggan(){
+		$nama = $this->input->post('nama');
+		$this->pelanggan->insert(['nama'=>$nama]);
+		echo json_encode($nama);
 	}
 }

@@ -10,7 +10,7 @@
     <meta name="description" content="Vuesax admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuesax admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>2 Columns - Vuesax - Bootstrap HTML admin template</title>
+    <title>Catatan</title>
 	<?php $this->load->view('css');?>
     
 </head>
@@ -58,6 +58,7 @@
                                 <li class="nav-item mobile-menu d-xl-none mr-auto">
                                     <!-- <a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a> -->
                                     <span style="font-size: larger; font-weight: bold;" id="judulnya"> </span>
+                                    <a href="javascript:void(0)" onclick="keluar()">Close</a>
                                 </li>
                             </ul>
 
@@ -115,6 +116,9 @@
     <?php $this->load->view('js');?>
     <script type="text/javascript">
         $("#judulnya").html('Catatan Cicilan');
+        function keluar(){
+            window.close();
+        }
     </script>
 </body> 
 
