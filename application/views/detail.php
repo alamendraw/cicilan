@@ -63,7 +63,7 @@
     </div>
     <?php } ;?>
 </section>
-<a href="<?= site_url('home/transaksi');?>" class="float">
+<a href="javascript:void(0);" onClick="balik(<?= $pelanggan['id_pelanggan'];?>)" class="float">
     <i class="fa fa-arrow-left my-float"></i>
 </a>
 <script type="text/javascript">
@@ -71,6 +71,9 @@
     function bayar(idnya){
         window.location.replace(vurl+idnya);
     }
-
+    var burl = "<?= site_url('home/list_produk?id=');?>";
+    function balik(idnya){
+        window.location.replace(burl+idnya);
+    }
    
 </script>

@@ -58,7 +58,7 @@
                                 <li class="nav-item mobile-menu d-xl-none mr-auto">
                                     <!-- <a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a> -->
                                     <span style="font-size: larger; font-weight: bold;" id="judulnya"> </span>
-                                    <a href="javascript:void(0)" onclick="keluar()">Close</a>
+                                    <!-- <a href="javascript:void(0)" onclick="keluar()">Close</a> -->
                                 </li>
                             </ul>
 

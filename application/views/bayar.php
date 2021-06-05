@@ -56,7 +56,7 @@
     <i class="fa fa-arrow-left my-float"></i>
 </a>
 <script type="text/javascript">
-    var vurl = "<?= site_url('home/detail?id=');?>";
+    var vurl = "<?= site_url('home/list_produk?id=');?>";
     function detail(idnya){
         window.location.replace(vurl+idnya);
     }

@@ -35,9 +35,17 @@ class Home extends CI_Controller {
 	{
 		$id = $_REQUEST['id'];
 		$this->output->set_template('template');
-		$this->data['pelanggan'] = $this->produk->get_detail($id);
-		$this->data['list'] = $this->cicilan->get_all(['id_pelanggan'=>$id]);  
+		$this->data['pelanggan'] = $this->produk->get_detail($id)[0];
+		$this->data['list'] = $this->cicilan->get_all(['id_produk'=>$id]);   
 		$this->load->view('detail',$this->data);
+	}
+
+	public function list_produk()
+	{
+		$id = $_REQUEST['id'];
+		$this->output->set_template('template'); 
+		$this->data['list'] = $this->cicilan->get_list($id);  
+		$this->load->view('list_produk',$this->data);
 	}
 
 	public function tambah()

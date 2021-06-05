@@ -24,4 +24,10 @@ class M_cicilan extends MY_Model {
     $data = $this->db->query("SELECT COUNT(*) jml FROM cicilan WHERE bln_tagihan='$bulan' AND STATUS='Sudah di bayar'")->row('jml');
     return $data;
   }
+  
+  public function get_list($id){
+    $data = $this->db->query("SELECT * FROM produk WHERE id_pelanggan='$id' GROUP BY id");
+    return $data->result_array();
+  }
+
 }
