@@ -60,7 +60,9 @@ class Home extends CI_Controller {
 	{
 		$this->output->set_template('template');
 		$this->data['action'] = 'edit';
-		$this->data['data'] = $this->pelanggan->get($id);
+		$this->data['data'] = $this->produk->get($id);
+		$this->data['data']->nama = $this->pelanggan->get(['id'=>$this->data['data']->id_pelanggan])->nama; 
+		// echo json_encode($this->data); die;
 		$this->load->view('form_add', $this->data);
 	}
 
@@ -69,7 +71,7 @@ class Home extends CI_Controller {
 		$id = $_REQUEST['id'];
 		$data_cicil = $this->cicilan->get($id); 
 		$this->output->set_template('template');
-		$this->data['cicilan'] = $this->produk->get(['id_pelanggan'=>$data_cicil->id_pelanggan])->nilai_cicilan; 
+		$this->data['cicilan'] = $this->produk->get(['id_pelanggan'=>$data_cicil->id_pelanggan])->nilai_cicilan;
 		$this->data['list'] = $data_cicil; 
 		$this->load->view('form_bayar',$this->data);
 	}
