@@ -70,8 +70,9 @@ class Home extends CI_Controller {
 	{
 		$id = $_REQUEST['id'];
 		$data_cicil = $this->cicilan->get($id); 
+		// echo json_encode($data_cicil); die;
 		$this->output->set_template('template');
-		$this->data['cicilan'] = $this->produk->get(['id_pelanggan'=>$data_cicil->id_pelanggan])->nilai_cicilan;
+		$this->data['cicilan'] = $this->produk->get(['id'=>$data_cicil->id_produk])->nilai_cicilan;
 		$this->data['list'] = $data_cicil; 
 		$this->load->view('form_bayar',$this->data);
 	}

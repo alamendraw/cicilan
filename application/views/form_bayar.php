@@ -35,7 +35,7 @@
             </div>
             <div align="center">
                 <button type="submit" class="btn btn-outline-primary">Simpan</button>
-                <button type="button" onClick="kembali(<?= $list->id_pelanggan;?>)" class="btn btn-outline-warning">Kembali</button>
+                <button type="button" onClick="kembali(<?= $list->id_produk;?>)" class="btn btn-outline-warning">Kembali</button>
             </div> <br>
             </form>
         </div>
