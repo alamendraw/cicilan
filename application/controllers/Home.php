@@ -93,6 +93,7 @@ class Home extends CI_Controller {
 
 	public function pinjam()
 	{
+		$this->pinjam->order_by('tgl_bayar');
 		$data_pinjam = $this->pinjam->get_all(); 
 		$this->output->set_template('template'); 
 		$this->data['list'] = $data_pinjam; 

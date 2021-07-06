@@ -58,7 +58,7 @@
 
 <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script> 
 <script type="text/javascript"> 
-    var vurl = "<?= site_url('home');?>";
+    var vurl = "<?= site_url('home/pinjam');?>";
 
     function kembali(){
         window.location.replace(vurl);
