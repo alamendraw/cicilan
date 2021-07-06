@@ -97,9 +97,27 @@
             </div> 
         </section>
     </div> 
+    <div class="col">
+        <section class="list-view"> 
+            <div class="card" onClick="otw('pinjam')">
+                <div class="card-content"> 
+                    <div class="card-body"> 
+                        <div class="row"> 
+                        <div class="col-12" align='center'>
+                                <img class="img-fluid" src="<?= base_url();?>/assets/images/pinjam.png" alt="" style="width:85px; height:65px;">  
+                            </div>
+                            <div class="col-12" align="center" style="font-weight:bold;">
+                                Pinjam
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+            </div> 
+        </section>
+    </div> 
   </div> 
  
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-6">
         <section class="list-view"> 
             <div class="card" onClick="">
@@ -118,7 +136,7 @@
             </div> 
         </section>
     </div>  
-  </div> 
+  </div>  -->
 <script type="text/javascript">
     var vurl = "<?= site_url('home/');?>";
     function otw(idnya){

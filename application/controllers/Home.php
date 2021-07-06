@@ -9,6 +9,7 @@ class Home extends CI_Controller {
 		$this->load->model('m_pelanggan','pelanggan'); 
 		$this->load->model('m_cicilan','cicilan'); 
 		$this->load->model('m_produk','produk'); 
+		$this->load->model('m_pinjam','pinjam'); 
 		 
 	}
 
@@ -56,6 +57,20 @@ class Home extends CI_Controller {
 		$this->load->view('form_add', $this->data);
 	}
 
+	public function tambah_pinjam()
+	{
+		$this->output->set_template('template');
+		$this->data['action'] = 'tambah'; 
+		$this->load->view('form_pinjam', $this->data);
+	}
+
+	public function bayar_pinjam($id)
+	{
+		$this->output->set_template('template'); 
+		$this->data['data'] = $this->pinjam->get($id);
+		$this->load->view('form_bayar_pinjam', $this->data);
+	}
+
 	public function edit($id)
 	{
 		$this->output->set_template('template');
@@ -69,12 +84,19 @@ class Home extends CI_Controller {
 	public function bayar()
 	{
 		$id = $_REQUEST['id'];
-		$data_cicil = $this->cicilan->get($id); 
-		// echo json_encode($data_cicil); die;
+		$data_cicil = $this->cicilan->get($id);
 		$this->output->set_template('template');
 		$this->data['cicilan'] = $this->produk->get(['id'=>$data_cicil->id_produk])->nilai_cicilan;
 		$this->data['list'] = $data_cicil; 
 		$this->load->view('form_bayar',$this->data);
+	}
+
+	public function pinjam()
+	{
+		$data_pinjam = $this->pinjam->get_all(); 
+		$this->output->set_template('template'); 
+		$this->data['list'] = $data_pinjam; 
+		$this->load->view('pinjam',$this->data);
 	}
 
 	public function simpan_pembeli(){
@@ -118,6 +140,7 @@ class Home extends CI_Controller {
 		}
 		echo json_encode($return);
 	}
+	
 	public function simpan_bayar(){
 		$this->input->is_ajax_request() or exit('No direct script access allowed!');
 		$data = $this->input->post(null, true); 
@@ -126,6 +149,45 @@ class Home extends CI_Controller {
 		$field['tanggal'] = mysql_date($data['tanggal']);	
 		$field['status'] = 'Sudah di bayar';	
 		$save = $this->cicilan->update($field,['id'=>$id]);
+
+		if($save){ 
+				$return['status'] = 'success';
+				$return['message'] = 'Data Berhasil Tersimpan.'; 
+		}else{
+			$return['status'] = 'error';
+         	$return['message'] = 'Data Gagal Tersimpan.'; 
+		}
+		echo json_encode($return);
+	}
+
+	public function simpan_bayar_pinjam(){
+		$this->input->is_ajax_request() or exit('No direct script access allowed!');
+		$data = $this->input->post(null, true); 
+		$id = $data['id']; 
+		$field['nilai_bayar'] = str_replace(',','',$data['nilai_bayar']);
+		$field['tgl_bayar'] = mysql_date($data['tgl_bayar']);	 
+		$save = $this->pinjam->update($field,['id'=>$id]);
+
+		if($save){ 
+				$return['status'] = 'success';
+				$return['message'] = 'Data Berhasil Tersimpan.'; 
+		}else{
+			$return['status'] = 'error';
+         	$return['message'] = 'Data Gagal Tersimpan.'; 
+		}
+		echo json_encode($return);
+	}
+
+	public function simpan_pinjam(){
+		$this->input->is_ajax_request() or exit('No direct script access allowed!');
+		$data = $this->input->post(null, true);
+
+		$field['nilai_pinjam'] = str_replace(',','',$data['nilai_pinjam']);
+		$field['tgl_pinjam'] = mysql_date($data['tgl_pinjam']);
+		$field['keterangan'] = $data['keterangan'];
+		$field['nama'] = $data['nama'];
+
+		$save = $this->pinjam->insert($field);
 
 		if($save){ 
 				$return['status'] = 'success';
