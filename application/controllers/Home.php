@@ -120,6 +120,13 @@ class Home extends CI_Controller {
 		$field['tenor'] = str_replace(',','',$data['tenor']); 
 		$field['id_pelanggan'] = $data['nama'];
 		$field['produk'] = $data['produk'];
+
+		if($data['nama']==''){
+			$return['status'] = 'error';
+			$return['message'] = 'Pilih Nama Pelanggan Terlebih Dahulu';
+			echo json_encode($return);
+			die;
+		}
 		if($data['id']==''){
 			$save = $this->produk->insert($field);
 			$month = date('m')+1;
@@ -129,7 +136,7 @@ class Home extends CI_Controller {
 					$month = 1;
 					$year = $year+1;
 				}
-				$cicil['id_pelanggan'] = $field['id_pelanggan'];
+				$cicil['id_produk'] = $save;
 				$cicil['cicilanke'] = $i+1;
 				$cicil['status'] = 'Belum di bayar';
 				$cicil['bln_tagihan'] = $month++;
@@ -137,7 +144,7 @@ class Home extends CI_Controller {
 				$save_cicil = $this->cicilan->insert($cicil);
 			}
 		}else{
-			$save = $this->pelanggan->update($field,['id'=>$data['id']]);
+			$save = $this->produk->update($field,['id'=>$data['id']]);
 		}
 		
 		if($save){ 
