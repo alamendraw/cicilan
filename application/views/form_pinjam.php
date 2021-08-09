@@ -9,6 +9,9 @@
             <form id="form" action="<?php echo site_url('home/simpan_pinjam')?>" method="post" enctype="multipart/form-data"  autocomplete="off">
             <div class="card-content">
                 <div class="card-body">
+                    
+                <input type="hidden" class="form-control" name="id" value="<?= ($action=='edit')?$data->id:'';?>" >
+                <input type="hidden" class="form-control" name="actions" value="<?= $action;?>" >
                     <div class="row"> 
                         <div class="col-sm-12">
                             <fieldset class="form-label-group">
@@ -32,7 +35,7 @@
 
                         <div class="col-sm-12">
                             <fieldset class="form-label-group">
-                              <textarea name="keterangan" id="keterangan" cols="30" rows="2" class="form-control"></textarea>
+                              <textarea name="keterangan" id="keterangan" cols="30" rows="2" class="form-control"><?= ($action=='edit')?$data->keterangan:'';?></textarea>
                                 <label for="keterangan">Keterangan</label>
                             </fieldset>
                         </div> 

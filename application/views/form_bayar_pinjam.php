@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h6 class="card-title">Data Peminjam</h6>
+                <h6 class="card-title">Bayar Peminjam</h6>
             </div>
             
             <form id="form" action="<?php echo site_url('home/simpan_bayar_pinjam')?>" method="post" enctype="multipart/form-data"  autocomplete="off">
@@ -18,15 +18,16 @@
                             </fieldset>
                         </div> 
                         <div class="col-sm-12">
+                            <label for="floating-label2">Nilai Pembayaran</label>
                             <fieldset class="form-label-group">
                             <input type="text" name="nilai_bayar" id="nilai_bayar" value="<?= $data->nilai_bayar;?>"  data-inputmask="'alias': 'decimal', 'groupSeparator': ','" class="form-control" placeholder="Nilai Pembayaran" required data-validation-required-message="Nilai Pembayaran Harus Diisi">
-                                <label for="floating-label2">Nilai Pembayaran</label>
+                                
                             </fieldset>
                         </div> 
                         
                         <div class="col-sm-12">
-                            <fieldset class="form-label-group">
                                 <label for="tanggal">Tanggal Pembayaran</label>
+                            <fieldset class="form-label-group">
                                 <input type="text" class="form-control date_draw" value="<?= date_simple($data->tgl_bayar);?>" name="tgl_bayar" id="tanggal" placeholder="Tanggal Pembayaran">
                             </fieldset>
                         </div> 

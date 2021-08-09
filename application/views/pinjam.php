@@ -75,6 +75,13 @@
                             <div class="col">: <?= $sisanya;?></div> 
                         </div>
                     </div>
+                    
+                    <div class="col-12" style="font-size: smaller;padding-bottom: 10px;"> 
+                        <div class="row">
+                            <div class="col">Keterangan</div>
+                            <div class="col">: <?= $row->keterangan;?></div> 
+                        </div>
+                    </div>
                 </div> 
             </div> 
         </div>

@@ -71,6 +71,14 @@ class Home extends CI_Controller {
 		$this->load->view('form_bayar_pinjam', $this->data);
 	}
 
+	public function edit_pinjam($id)
+	{
+		$this->output->set_template('template'); 
+		$this->data['data'] = $this->pinjam->get($id);
+		$this->data['action'] = 'edit';
+		$this->load->view('form_pinjam', $this->data);
+	}
+
 	public function edit($id)
 	{
 		$this->output->set_template('template');
@@ -188,7 +196,12 @@ class Home extends CI_Controller {
 		$field['keterangan'] = $data['keterangan'];
 		$field['nama'] = $data['nama'];
 
-		$save = $this->pinjam->insert($field);
+		if($data['actions']=='edit'){
+			$save = $this->pinjam->update($field, array('id'=>$data['id']));
+		}else{
+			$save = $this->pinjam->insert($field);
+		}
+		// 
 
 		if($save){ 
 				$return['status'] = 'success';
